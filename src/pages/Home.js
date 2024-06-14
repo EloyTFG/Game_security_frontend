@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import ButtonAppBar from '../components/header';
 import ProductHero from '../components/ProductHero';
+import VantaComponent from '../components/netComponet';
+
 const Home = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -37,9 +39,10 @@ const Home = () => {
 
   return (
     <>
-      {/* Agrega el ButtonAppBar aquí */}
+      
       <ButtonAppBar />
       <ProductHero />
+      <VantaComponent />
       
 
       
