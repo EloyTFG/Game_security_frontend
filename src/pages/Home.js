@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import AuthContext from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
 
+import ButtonAppBar from '../components/header';
+import ProductHero from '../components/ProductHero';
 const Home = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -25,40 +27,23 @@ const Home = () => {
 
   const phases = [
     { id: 1, name: 'Inyecciones SQL', path: '/challenges' },
-    // Puedes agregar más fases aquí si es necesario
+    { id: 2, name: 'Broken Access Protocol', path: '/challengesbroken' },
+    { id: 3, name: 'mitigat', path: '/challengemimit' },
+    { id: 4, name: 'Inyecciones XSS', path: '/challengeListinyectionxss' },
+    { id: 5, name: 'adsadada', path: '/base64-challenge' },
+    { id: 6, name: 'adsaasdadaddada', path: '/hash-challenge' }
   ];
+  
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Welcome to the Home Page</h1>
-      {user ? (
-        <>
-          <p>Welcome back! You are logged in.</p>
-          <button onClick={handleLogout} style={{ padding: '10px 20px', margin: '10px' }}>Logout</button>
-          <h2>Lista de Fases</h2>
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {phases.map((phase) => (
-              <li key={phase.id} style={{ margin: '20px' }}>
-                <button
-                  onClick={() => navigate(phase.path)}
-                  style={{ padding: '10px 20px' }}
-                >
-                  {phase.name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : (
-        <>
-          <p>Please login or register to continue.</p>
-          <div style={{ margin: '20px' }}>
-            <button onClick={handleLogin} style={{ padding: '10px 20px', margin: '10px' }}>Login</button>
-            <button onClick={handleRegister} style={{ padding: '10px 20px', margin: '10px' }}>Register</button>
-          </div>
-        </>
-      )}
-    </div>
+    <>
+      {/* Agrega el ButtonAppBar aquí */}
+      <ButtonAppBar />
+      <ProductHero />
+      
+
+      
+    </>
   );
 };
 

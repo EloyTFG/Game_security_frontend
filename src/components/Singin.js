@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState, useContext } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,9 +12,6 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import AuthContext from '../context/authContext';
-import backgroundImage from '../imagenes/wallpaper_home.webp'; // Importa la imagen desde la carpeta src
 
 function Copyright(props) {
   return (
@@ -30,24 +26,18 @@ function Copyright(props) {
   );
 }
 
+// TODO remove, this demo shouldn't need to reset the theme.
+
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
-  const [correoElectronico, setCorreoElectronico] = useState('');
-  const [contraseña, setContraseña] = useState('');
-  const { login } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    try {
-      await login({ correo_electronico: correoElectronico, contraseña });
-      navigate('/'); // Redirige al Home después de iniciar sesión exitosamente
-    } catch (error) {
-      console.error('Login error:', error.message || 'Error al iniciar sesión.');
-      // Aquí puedes mostrar un mensaje de error al usuario si lo deseas
-      alert('Error al iniciar sesión: ' + (error.message || 'Intenta nuevamente.'));
-    }
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
   };
 
   return (
@@ -60,7 +50,7 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: `url(${backgroundImage})`,
+            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -94,8 +84,6 @@ export default function SignInSide() {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                value={correoElectronico}
-                onChange={(e) => setCorreoElectronico(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -106,8 +94,6 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                value={contraseña}
-                onChange={(e) => setContraseña(e.target.value)}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

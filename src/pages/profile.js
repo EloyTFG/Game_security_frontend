@@ -1,56 +1,80 @@
 import * as React from 'react';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/authContext';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import axios from 'axios';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const defaultTheme = createTheme();
 
-export default function SignUp() {
-  const { register } = useContext(AuthContext);
-  const navigate = useNavigate();
+export default function Profile() {
+  const { user, setUser, login } = useContext(AuthContext);
   
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
+    id: '',
     nombre_completo: '',
     nombre_usuario: '',
     correo_electronico: '',
-    fecha_nacimiento: '', // Añadir campo de fecha de nacimiento
     contraseña: '',
+    currentPassword: '', // Contraseña actual requerida para la verificación
   });
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        id: user.id || '',
+        nombre_completo: user.nombre_completo || '',
+        nombre_usuario: user.nombre_usuario || '',
+        correo_electronico: user.correo_electronico || '',
+        contraseña: '',
+        currentPassword: '', // Inicializar la contraseña actual vacía
+      });
+    }
+  }, [user]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!formData.currentPassword) {
+      alert('Please provide your current password to update the profile.');
+      return;
+    }
     try {
-      await register(formData);
-      navigate('/'); // Redirige al Home después del registro exitoso
+      const updatedData = { ...formData };
+      if (!updatedData.contraseña) {
+        delete updatedData.contraseña; // No enviar contraseña si está vacía
+      }
+
+      const response = await axios.put('http://localhost:5000/api/users/update', updatedData, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+
+      const { token, user: updatedUser } = response.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('userInfo', JSON.stringify(updatedUser));
+
+      // Reautenticar al usuario
+      login({
+        correo_electronico: updatedUser.correo_electronico,
+        contraseña: updatedData.contraseña || formData.currentPassword,
+      });
+      navigate('/');
+      setUser({ token, ...updatedUser });
+      
     } catch (error) {
-      console.error('Registration error:', error.message || 'Error al registrar.');
-      alert('Error al registrar: ' + (error.message || 'Intenta nuevamente.'));
+      
     }
   };
 
@@ -74,7 +98,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Profile
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -86,7 +110,6 @@ export default function SignUp() {
                   fullWidth
                   id="nombre_completo"
                   label="Full Name"
-                  autoFocus
                   value={formData.nombre_completo}
                   onChange={handleChange}
                 />
@@ -106,7 +129,7 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="email"
+                  id="correo_electronico"
                   label="Email Address"
                   name="correo_electronico"
                   autoComplete="email"
@@ -116,16 +139,13 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
-                  id="fecha_nacimiento"
-                  label="Date of Birth"
-                  name="fecha_nacimiento"
-                  type="date"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  value={formData.fecha_nacimiento}
+                  name="contraseña"
+                  label="New Password (leave blank to keep current)"
+                  type="password"
+                  id="contraseña"
+                  autoComplete="new-password"
+                  value={formData.contraseña}
                   onChange={handleChange}
                 />
               </Grid>
@@ -133,19 +153,13 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  name="contraseña"
-                  label="Password"
+                  name="currentPassword"
+                  label="Current Password"
                   type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  value={formData.contraseña}
+                  id="currentPassword"
+                  autoComplete="current-password"
+                  value={formData.currentPassword}
                   onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
             </Grid>
@@ -155,18 +169,10 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Update Profile
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

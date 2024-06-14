@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Cross-Site Scripting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejemplo de Cross-Site Scripting</h1>
+    <form id="commentForm">
+        <label for="comment">Comentario:</label>
+        <textarea id="comment" name="comment"></textarea><br><br>
+        <button type="submit">Enviar</button>
+    </form>
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('commentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const comment = document.getElementById('comment').value;
+
+            // Realiza la petición al backend
+            fetch('http://localhost:5000/api/challenges/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ comment: comment })
+            })
+            .then(response => response.text())
+            .then(html => {
+                // Inyecta el HTML en el DOM
+                document.getElementById('response').innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+    
+</body>
+</html>

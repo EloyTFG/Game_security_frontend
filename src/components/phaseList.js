@@ -1,36 +1,56 @@
-// src/components/PhaseList.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { List, ListItem, ListItemText, Typography, Container, CircularProgress, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+import ButtonAppBar from './header';
 const PhaseList = () => {
+  const [phases, setPhases] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const handlePhaseClick = (phasePath) => {
-    navigate(phasePath);
-  };
+  useEffect(() => {
+    const fetchPhases = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/fases');
+        setPhases(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const phases = [
-    { id: 1, name: 'Inyecciones SQL', path: '/challenges' },
-    { id: 2, name: 'Broken Access Protocol', path: '/challengesbroken' },
-  ];
+    fetchPhases();
+  }, []);
+
+  if (loading) {
+    return <CircularProgress />;
+  }
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h2>Lista de Fases</h2>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {phases.map((phase) => (
-          <li key={phase.id} style={{ margin: '20px' }}>
-            <button
-              onClick={() => handlePhaseClick(phase.path)}
-              style={{ padding: '10px 20px' }}
-            >
-              {phase.name}
-            </button>
-          </li>
+    <>
+    <ButtonAppBar/>
+    <Container>
+      <Typography variant="h4" gutterBottom>
+        Lista de Fases
+      </Typography>
+      <List>
+        {phases.map((fase) => (
+          <ListItem
+            key={fase.id_fase}
+            divider
+            button
+            onClick={() => navigate(`/fase/${fase.id_fase}`)}
+          >
+            <ListItemText
+              primary={fase.nombre_fase}
+              secondary={`Vulnerabilidad: ${fase.vulnerabilidad}`}
+            />
+          </ListItem>
         ))}
-      </ul>
-    </div>
-  );
+      </List>
+    </Container>
+    </>);
 };
 
 export default PhaseList;
