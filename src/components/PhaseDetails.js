@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { List, ListItem, ListItemText, Typography, Container, CircularProgress } from '@mui/material';
+import { List, ListItem, ListItemText, Typography, Container, CircularProgress,IconButton } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import ButtonAppBar from './header';
+import { useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const PhaseDetails = () => {
   const { id_fase } = useParams();
   const [fase, setFase] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchChallenges = async () => {
@@ -15,7 +18,7 @@ const PhaseDetails = () => {
         const response = await axios.get(`http://localhost:5000/api/fases/${id_fase}`);
         setFase(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error(`Error fetching data:`, error);
       } finally {
         setLoading(false);
       }
@@ -23,6 +26,10 @@ const PhaseDetails = () => {
 
     fetchChallenges();
   }, [id_fase]);
+
+  const renderStars = (nivel_dificultad) => {
+    return '⭐'.repeat(nivel_dificultad);
+  };
 
   if (loading) {
     return <CircularProgress />;
@@ -33,30 +40,33 @@ const PhaseDetails = () => {
   }
 
   return (
-    <>
+    <div id='fases'>
       <ButtonAppBar />
       <Container>
-        <Typography variant="h4" gutterBottom>
+      <IconButton color="primary" onClick={() => navigate(-1)} aria-label="back">
+            <ArrowBackIcon />
+          </IconButton>
+        <Typography variant="h3" gutterBottom>
           {fase.nombre_fase}
         </Typography>
         <List>
           {fase.Desafios.map((desafio, index) => (
-            <ListItem 
+            <ListItem id='list-item'
               key={desafio.id_desafio} 
               divider
               component={Link} 
               to={`/challenge/${desafio.id_desafio}`}
-              button // Añade esta propiedad para que el `ListItem` sea clickeable
+              button // Añade esta propiedad para que el ListItem sea clickeable
             >
               <ListItemText
                 primary={`Desafío ${index + 1}`}
-                secondary={`Nivel de dificultad: ${desafio.nivel_dificultad}`}
+                secondary={`Nivel de dificultad: ${renderStars(desafio.nivel_dificultad)}`}
               />
             </ListItem>
           ))}
         </List>
       </Container>
-    </>
+    </div>
   );
 };
 

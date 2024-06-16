@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -11,10 +11,10 @@ export default function ProductHero() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
+
   return (
     <ProductHeroLayout
       sxBackground={{
-        backgroundImage: `url(${backgroundImage})`,
         backgroundColor: '#7fc7d9',
         backgroundPosition: 'center',
       }}
@@ -34,6 +34,7 @@ export default function ProductHero() {
         </Typography>
          <Box sx={{ display: 'flex', gap: 2, mt: 3 }}>
          <Button
+         id='btn-jugar'
            color="primary"
            variant="contained"
            size="large"

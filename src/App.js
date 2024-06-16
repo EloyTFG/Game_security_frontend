@@ -19,6 +19,11 @@ import TopPlayers from './components/topComponent';
 import UserList from './components/userList';
 import EditUser from './components/editUser';
 
+import DesafioList from './components/desafioList';
+import EditDesafio from './components/editDesafio';
+import CreateChallenge from './components/createChallenge';
+
+
 import SqlInjectionChallenge from './pages/SqlInjectionChallenge';
 import SqlInjectionChallenge2 from './pages/SqlInjectionChallenge2';
 import BrokenAccessControlChallenge from './pages/BrokenAccessControlChallenge';
@@ -49,7 +54,7 @@ function App() {
     <ThemeProvider theme={theme}>
     <AuthProvider>
       <Router>
-        <Routes>
+      <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -72,6 +77,15 @@ function App() {
 
           <Route path="/user-list" element={<UserList />} />
           <Route path="/edit-user/:id" element={<EditUser />} />
+        
+
+          <Route path="/challenge-list" element={<DesafioList />} />
+          <Route path="/edit-challenge/:id" element={<EditDesafio />} />
+          <Route path="/create-challenge" element={<CreateChallenge />} />
+
+
+
+
 
           <Route path="/XSSChallenge" element={<XSSChallenge />} />
 

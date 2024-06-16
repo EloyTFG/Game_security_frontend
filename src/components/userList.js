@@ -1,21 +1,33 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-import { Container, Table, TableBody, TableCell, TableHead, TableRow, IconButton, Button, Box } from '@mui/material';
+import { Container, Table, TableBody, TableCell, TableHead, TableRow, IconButton, Button, Box, CircularProgress, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/authContext';
+import ButtonAppBar from './header'; // Asumiendo que el componente de la barra de navegación se llama header
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext); // Obtiene el usuario autenticado
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (user?.id_rol !== 1) {
-      navigate('/login');
+    if (!user || user.id_rol !== 1) {
+      navigate('/login'); // Redirige a la página de login si no es admin
+      return;
     }
+
     const fetchUsers = async () => {
+      if (!user.token) {
+        console.error('No token found');
+        setLoading(false);
+        return;
+      }
+
       try {
         const response = await axios.get('http://localhost:5000/admin-api/users', {
           headers: { Authorization: `Bearer ${user.token}` }
@@ -23,6 +35,8 @@ const UserList = () => {
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching users:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -45,47 +59,64 @@ const UserList = () => {
   };
 
   const handleCreateChallenge = () => {
-    navigate('/create-challenge');
+    navigate('/challenge-list');
   };
 
+  if (loading) {
+    return <CircularProgress />;
+  }
+
   return (
-    <Container>
-      <h1>Lista de Usuarios</h1>
-      <Box sx={{ mb: 2, display: 'flex', justifyContent: 'flex-end' }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleCreateChallenge}
-        >
-          Crear Desafío
-        </Button>
-      </Box>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Nombre Completo</TableCell>
-            <TableCell>Nombre de Usuario</TableCell>
-            <TableCell>Correo Electrónico</TableCell>
-            <TableCell>Acciones</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users.map((user) => (
-            <TableRow key={user.id_usuario}>
-              <TableCell>{user.id_usuario}</TableCell>
-              <TableCell>{user.nombre_completo}</TableCell>
-              <TableCell>{user.nombre_usuario}</TableCell>
-              <TableCell>{user.correo_electronico}</TableCell>
-              <TableCell>
-                <IconButton onClick={() => handleEdit(user.id_usuario)}><EditIcon /></IconButton>
-                <IconButton onClick={() => handleDelete(user.id_usuario)}><DeleteIcon /></IconButton>
-              </TableCell>
+    <div id="challenge">
+      <ButtonAppBar />
+      <Container>
+      <IconButton color="primary" onClick={() => navigate(-1)} aria-label="back">
+            <ArrowBackIcon />
+          </IconButton>
+        <Typography variant="h3" gutterBottom sx={{ color: 'white' }}>
+          Lista de Usuarios
+        </Typography>
+        <Box sx={{ mb: 2, display: 'flex', justifyContent: 'flex-end' }}>
+         
+          <Button
+         id='btn-jugar'
+           color="primary"
+           variant="contained"
+           size="large"
+           component="a"
+           onClick={handleCreateChallenge}
+           sx={{ minWidth: 150 }}
+         >
+           Desafíos
+         </Button>
+        </Box>
+        <Table sx={{ border: '1px solid white' }}>
+          <TableHead>
+            <TableRow sx={{ backgroundColor: '#1976d2' }}>
+              <TableCell sx={{ color: 'white' }}>ID</TableCell>
+              <TableCell sx={{ color: 'white' }}>Nombre Completo</TableCell>
+              <TableCell sx={{ color: 'white' }}>Nombre de Usuario</TableCell>
+              <TableCell sx={{ color: 'white' }}>Correo Electrónico</TableCell>
+              <TableCell sx={{ color: 'white' }}>Acciones</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Container>
+          </TableHead>
+          <TableBody>
+            {users.map((user) => (
+              <TableRow key={user.id_usuario} sx={{ '&:nth-of-type(odd)': { backgroundColor: '#23153c' } }}>
+                <TableCell sx={{ color: 'white' }}>{user.id_usuario}</TableCell>
+                <TableCell sx={{ color: 'white' }}>{user.nombre_completo}</TableCell>
+                <TableCell sx={{ color: 'white' }}>{user.nombre_usuario}</TableCell>
+                <TableCell sx={{ color: 'white' }}>{user.correo_electronico}</TableCell>
+                <TableCell>
+                  <IconButton onClick={() => handleEdit(user.id_usuario)}><EditIcon sx={{ color: 'white' }} /></IconButton>
+                  <IconButton onClick={() => handleDelete(user.id_usuario)}><DeleteIcon sx={{ color: 'white' }} /></IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Container>
+    </div>
   );
 };
 

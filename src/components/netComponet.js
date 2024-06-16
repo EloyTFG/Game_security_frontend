@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import WAVES from 'vanta/dist/vanta.waves.min';
+
+
 import NET from 'vanta/src/vanta.net'
 
 const VantaComponent = () => {

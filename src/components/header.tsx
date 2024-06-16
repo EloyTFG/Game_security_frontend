@@ -106,17 +106,16 @@ export default function ButtonAppBar() {
           onKeyDown={handleDrawerClose}
         >
           <List>
-            {/* Muestra el menú de administración solo si el usuario es un administrador */}
             {user?.id_rol === 1 && (
               <ListItem button onClick={() => navigate('/user-list')}>
                 <ListItemText primary="Admin menu" />
               </ListItem>
             )}
             <ListItem button onClick={handleProfileClick}>
-              <ListItemText primary="Profile" />
+              <ListItemText primary="My Profile" />
             </ListItem>
             <ListItem button onClick={() => navigate('/TopPlayers')}>
-              <ListItemText primary="My account" />
+              <ListItemText primary="Top players" />
             </ListItem>
             <ListItem button onClick={handleLogout}>
               <ListItemText primary="Logout" />
