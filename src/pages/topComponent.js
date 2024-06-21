@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Container, Table, TableBody, TableCell, TableHead, TableRow, IconButton, Button, Box, CircularProgress, Typography, List, ListItem, ListItemText } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/authContext';
-import ButtonAppBar from './header';
+import ButtonAppBar from '../components/header';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const TopPlayers = () => {

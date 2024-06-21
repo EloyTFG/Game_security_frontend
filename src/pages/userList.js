@@ -5,19 +5,19 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/authContext';
-import ButtonAppBar from './header'; // Asumiendo que el componente de la barra de navegación se llama header
+import ButtonAppBar from '../components/header'; 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useContext(AuthContext); // Obtiene el usuario autenticado
+  const { user } = useContext(AuthContext); 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user || user.id_rol !== 1) {
-      navigate('/login'); // Redirige a la página de login si no es admin
+      navigate('/login'); 
       return;
     }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { List, ListItem, ListItemText, Typography, Container, CircularProgress,IconButton } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
-import ButtonAppBar from './header';
+import ButtonAppBar from '../components/header';
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -56,7 +56,7 @@ const PhaseDetails = () => {
               divider
               component={Link} 
               to={`/challenge/${desafio.id_desafio}`}
-              button // Añade esta propiedad para que el ListItem sea clickeable
+              button 
             >
               <ListItemText
                 primary={`Desafío ${index + 1}`}

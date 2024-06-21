@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/authContext';
 import axios from 'axios';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import VantaComponent from '../components/netComponet'; // Asegúrate de importar correctamente el componente VantaComponent
+import VantaComponent from '../components/netComponet'; 
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const defaultTheme = createTheme();

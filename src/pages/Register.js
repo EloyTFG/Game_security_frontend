@@ -15,7 +15,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/authContext';
-import VantaComponent from '../components/netComponet'; // Asegúrate de importar correctamente el componente VantaComponent
+import VantaComponent from '../components/netComponet'; 
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -50,7 +50,7 @@ export default function SignUp() {
     event.preventDefault();
     try {
       await register(formData);
-      navigate('/'); // Redirige al Home después del registro exitoso
+      navigate('/'); 
     } catch (error) {
       console.error('Registration error:', error.message || 'Error al registrar.');
       alert('Error al registrar: ' + (error.message || 'Intenta nuevamente.'));

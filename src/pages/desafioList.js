@@ -7,7 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/authContext';
-import ButtonAppBar from './header';
+import ButtonAppBar from '../components/header';
 
 const ChallengeList = () => {
   const [challenges, setChallenges] = useState([]);

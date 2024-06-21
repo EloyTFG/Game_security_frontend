@@ -29,8 +29,8 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ButtonAppBar from "./header";
-import AuthContext from "../context/authContext"; // Importa el contexto de autenticación
+import ButtonAppBar from "../components/header";
+import AuthContext from "../context/authContext"; 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -45,22 +45,22 @@ const Challenge = () => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [timeLeft, setTimeLeft] = useState(10);
   const [hintAvailable, setHintAvailable] = useState(false);
-  const [timeSpent, setTimeSpent] = useState(0); // Contador de tiempo
+  const [timeSpent, setTimeSpent] = useState(0); 
   const [intervalId, setIntervalId] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const { user } = useContext(AuthContext); // Accede al contexto de autenticación para obtener el usuario actual
+  const { user } = useContext(AuthContext); 
   const navigate = useNavigate();
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
   const [choices, setChoices] = useState([]);
   const [correctChoice, setCorrectChoice] = useState("");
   const [selectedChoice, setSelectedChoice] = useState("");
 
-  // Estado para manejar documentos de prevención (ahora es de prevención)
+ 
   const [documentosPrevencion, setDocumentosPrevencion] = useState([]);
   const [prevencionDialogOpen, setPrevencionDialogOpen] = useState(false);
   const [currentPrevencionIndex, setCurrentPrevencionIndex] = useState(0);
 
-  // Estado para manejar documentos de ayuda (ahora es de ayuda)
+  
   const [documentosAyuda, setDocumentosAyuda] = useState([]);
   const [docDialogOpen, setDocDialogOpen] = useState(false);
   const [currentDocIndex, setCurrentDocIndex] = useState(0);
@@ -73,7 +73,7 @@ const Challenge = () => {
         );
         setChallenge(response.data);
 
-        // Check if the solution contains &
+       
         if (response.data.solucion_desafio.includes('&')) {
           const solutions = response.data.solucion_desafio.split('&').map(sol => sol.trim());
           setCorrectChoice(solutions[0]);
@@ -145,7 +145,7 @@ const Challenge = () => {
     const score = Math.max(0, baseScore - timeSpent * penaltyPerSecond);
 
     const progressData = {
-      id_usuario: user.id, // Utiliza la ID del usuario del contexto
+      id_usuario: user.id, 
       id_desafio: id_desafio,
       puntuacion: score,
       tiempo_invertido: new Date(timeSpent * 1000)
@@ -155,7 +155,7 @@ const Challenge = () => {
 
     try {
       await axios.post(`http://localhost:5000/api/progreso`, progressData);
-      setDialogOpen(true); // Abre el diálogo
+      setDialogOpen(true); 
     } catch (error) {
       console.error("Error enviando el progreso:", error);
     }
@@ -165,7 +165,7 @@ const Challenge = () => {
     if (hintAvailable && visibleHints < challenge.Pista.length) {
       setVisibleHints((prev) => prev + 1);
       setHintAvailable(false);
-      setTimeLeft(10); // Reset timer for the next hint
+      setTimeLeft(10); 
     }
   };
 
@@ -178,8 +178,8 @@ const Challenge = () => {
       const response = await axios.get(
         `http://localhost:5000/api/desafio/${id_desafio}/documentosprevencion`
       );
-      setDocumentosPrevencion(response.data); // Cambia a prevención
-      setPrevencionDialogOpen(true); // Abre el diálogo de documentos de prevención
+      setDocumentosPrevencion(response.data); 
+      setPrevencionDialogOpen(true); 
     } catch (error) {
       console.error("Error fetching DocumentoPrevencion:", error);
     }
@@ -202,7 +202,7 @@ const Challenge = () => {
     }
   };
 
-  // Funciones para manejar el diálogo de documentos de ayuda
+  
   const handleDocDialogOpen = async () => {
     try {
       const response = await axios.get(
@@ -249,7 +249,7 @@ const Challenge = () => {
       <Button
           variant="contained"
           color="secondary"
-          onClick={handleDocDialogOpen} // Cambia a documentos de ayuda
+          onClick={handleDocDialogOpen} 
           sx={{ mt: 4 }}
         >
           Ver Documentos de Ayuda
@@ -305,28 +305,28 @@ const Challenge = () => {
               sx={{
                 "& .MuiOutlinedInput-root": {
                   "& fieldset": {
-                    borderColor: "white", // Borde por defecto blanco
+                    borderColor: "white", 
                   },
                   "&:hover fieldset": {
-                    borderColor: "white", // Borde blanco al pasar el mouse
+                    borderColor: "white", 
                   },
                   "&.Mui-focused fieldset": {
-                    borderColor: "white", // Borde blanco cuando está enfocado
+                    borderColor: "white", 
                   },
                 },
                 "& .MuiInputLabel-root": {
-                  color: "white", // Color del texto del label
+                  color: "white", 
                 },
                 "& .MuiInputBase-input": {
-                  color: "white", // Color del texto de entrada
+                  color: "white", 
                 },
                 "& .MuiOutlinedInput-input": {
                   "&::placeholder": {
-                    color: "white", // Color del placeholder
+                    color: "white", 
                   },
                 },
                 "& .MuiInputLabel-outlined.MuiInputLabel-shrink": {
-                  color: "white", // Color del label flotante (cuando se eleva)
+                  color: "white", 
                 },
               }}
             >
@@ -349,30 +349,30 @@ const Challenge = () => {
               mb: 2,
               "& .MuiOutlinedInput-root": {
                 "& fieldset": {
-                  borderColor: "white", // Borde por defecto blanco
+                  borderColor: "white", 
                 },
                 "&:hover fieldset": {
-                  borderColor: "white", // Borde blanco al pasar el mouse
+                  borderColor: "white", 
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: "white", // Borde blanco cuando está enfocado
+                  borderColor: "white", 
                 },
               },
               "& .MuiInputLabel-root": {
-                color: "white", // Color del texto del label
-                marginLeft: "80px", // Añade un margen izquierdo al label
+                color: "white", 
+                marginLeft: "80px", 
               },
               "& .MuiInputBase-input": {
-                color: "white", // Color del texto de entrada
+                color: "white", 
                 marginLeft: "80px",
               },
               "& .MuiOutlinedInput-input": {
                 "&::placeholder": {
-                  color: "white", // Color del placeholder
+                  color: "white", 
                 },
               },
               "& .MuiInputLabel-outlined.MuiInputLabel-shrink": {
-                color: "white", // Color del label flotante (cuando se eleva)
+                color: "white", 
               },
             }}
           />
@@ -389,7 +389,7 @@ const Challenge = () => {
           <Typography variant="h4">Pistas</Typography>
           <Accordion id="acordeon">
             <AccordionSummary
-              expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />} // Flecha blanca
+              expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />} 
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
@@ -431,7 +431,7 @@ const Challenge = () => {
                     disabled={!hintAvailable}
                     sx={{
                       mr: 2,
-                      borderColor: hintAvailable ? "" : "white", // Borde blanco antes de que esté disponible
+                      borderColor: hintAvailable ? "" : "white", 
                       borderWidth: hintAvailable ? "" : "1px",
                       borderStyle: hintAvailable ? "" : "solid",
                     }}
@@ -459,8 +459,8 @@ const Challenge = () => {
           aria-describedby="alert-dialog-slide-description"
           PaperProps={{
             sx: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)', // Fondo oscuro para mejor contraste
-              color: 'white', // Cambiar el color del texto a blanco
+              backgroundColor: 'rgba(0, 0, 0, 0.8)', 
+              color: 'white', 
             },
           }}
         >
@@ -485,15 +485,15 @@ const Challenge = () => {
         </Dialog>
 
         <Dialog
-          open={docDialogOpen} // Dialog para documentos de ayuda
+          open={docDialogOpen} 
           TransitionComponent={Transition}
           keepMounted
           onClose={handleDocDialogClose}
           aria-describedby="documento-ayuda-description"
           PaperProps={{
             sx: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)', // Fondo oscuro para mejor contraste
-              color: 'white', // Cambiar el color del texto a blanco
+              backgroundColor: 'rgba(0, 0, 0, 0.8)', 
+              color: 'white', 
             },
           }}
         >
@@ -519,15 +519,15 @@ const Challenge = () => {
         </Dialog>
 
         <Dialog
-          open={prevencionDialogOpen} // Dialog para documentos de prevención
+          open={prevencionDialogOpen} 
           TransitionComponent={Transition}
           keepMounted
           onClose={handlePrevencionDialogClose}
           aria-describedby="documento-prevencion-description"
           PaperProps={{
             sx: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)', // Fondo oscuro para mejor contraste
-              color: 'white', // Cambiar el color del texto a blanco
+              backgroundColor: 'rgba(0, 0, 0, 0.8)', 
+              color: 'white', 
             },
           }}
         >
@@ -556,7 +556,7 @@ const Challenge = () => {
   );
 };
 
-// Función para barajar array
+
 function shuffleArray(array) {
   return array.sort(() => Math.random() - 0.5);
 }

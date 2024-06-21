@@ -18,8 +18,8 @@ import AuthContext from '../context/authContext';
 
 export default function ButtonAppBar() {
   const { user, logout } = useContext(AuthContext); 
-  const navigate = useNavigate(); // Hook para la navegación
-  const [drawerOpen, setDrawerOpen] = useState(false); // Estado para el Drawer
+  const navigate = useNavigate(); 
+  const [drawerOpen, setDrawerOpen] = useState(false); 
 
   const handleLogout = () => {
     logout();
@@ -35,21 +35,21 @@ export default function ButtonAppBar() {
   };
 
   const handleProfileClick = () => {
-    handleDrawerClose(); // Cierra el Drawer antes de navegar
-    navigate('/update'); // Navega a la página de actualización
+    handleDrawerClose(); 
+    navigate('/update'); 
   };
 
   const getInitials = (name: string) => {
     const words = name.split(' ');
     const initials = words.map(word => word[0]).join('').toUpperCase();
-    return initials.substring(0, 2); // Retorna las dos primeras letras
+    return initials.substring(0, 2); 
   };
   
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          {user && ( // Mostrar el botón del Drawer solo si el usuario está logueado
+          {user && ( 
             <>
               <IconButton
                 size="large"
@@ -57,7 +57,7 @@ export default function ButtonAppBar() {
                 color="inherit"
                 aria-label="menu"
                 sx={{ mr: 2 }}
-                onClick={handleDrawerOpen} // Abre el Drawer al hacer clic
+                onClick={handleDrawerOpen} 
               >
                 <MenuIcon />
               </IconButton>
@@ -71,7 +71,7 @@ export default function ButtonAppBar() {
               padding: 0,
               minWidth: 0,
               '&:hover': {
-                backgroundColor: 'transparent', // Evita que se vea como un botón al hacer hover
+                backgroundColor: 'transparent', 
               },
             }}
           >
@@ -80,17 +80,17 @@ export default function ButtonAppBar() {
             </Typography>
           </Button>
           <Box sx={{ flexGrow: 1 }} />
-          {user ? ( // Si el usuario está logueado, muestra el nombre de usuario con Avatar
+          {user ? ( 
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Avatar sx={{ mr: 1 }}>
-                {getInitials(user.nombre_usuario)} {/* Muestra las iniciales */}
+                {getInitials(user.nombre_usuario)}
               </Avatar>
               <Typography variant="h6" component="div">
-                {user.nombre_usuario} {/* Muestra el nombre de usuario */}
+                {user.nombre_usuario} 
               </Typography>
             </Box>
           ) : (
-            <Button color="inherit" href="/login/">Login</Button> // Muestra "Login" si no hay usuario
+            <Button color="inherit" href="/login/">Login</Button> 
           )}
         </Toolbar>
       </AppBar>

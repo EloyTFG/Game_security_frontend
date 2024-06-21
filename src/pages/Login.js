@@ -43,7 +43,7 @@ export default function SignInSide() {
     event.preventDefault();
     try {
       await login({ correo_electronico: correoElectronico, contraseña });
-      navigate('/'); // Redirige al Home después de iniciar sesión exitosamente
+      navigate('/'); 
     } catch (error) {
       console.error('Login error:', error.message || 'Error al iniciar sesión.');
       alert('Error al iniciar sesión: ' + (error.message || 'Intenta nuevamente.'));
@@ -75,7 +75,7 @@ export default function SignInSide() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                bgcolor: 'rgba(0, 0, 0, 0.5)', // Fondo semitransparente
+                bgcolor: 'rgba(0, 0, 0, 0.5)', 
                 p: 4,
                 borderRadius: 2,
               }}
@@ -110,28 +110,28 @@ export default function SignInSide() {
                     mb: 2,
                     "& .MuiOutlinedInput-root": {
                       "& fieldset": {
-                        borderColor: "white", // Borde por defecto blanco
+                        borderColor: "white", 
                       },
                       "&:hover fieldset": {
-                        borderColor: "white", // Borde blanco al pasar el mouse
+                        borderColor: "white", 
                       },
                       "&.Mui-focused fieldset": {
-                        borderColor: "white", // Borde blanco cuando está enfocado
+                        borderColor: "white", 
                       },
                     },
                     "& .MuiInputLabel-root": {
-                      color: "white", // Color del texto del label
+                      color: "white", 
                     },
                     "& .MuiInputBase-input": {
-                      color: "white", // Color del texto de entrada
+                      color: "white", 
                     },
                     "& .MuiOutlinedInput-input": {
                       "&::placeholder": {
-                        color: "white", // Color del placeholder
+                        color: "white", 
                       },
                     },
                     "& .MuiInputLabel-outlined.MuiInputLabel-shrink": {
-                      color: "white", // Color del label flotante (cuando se eleva)
+                      color: "white", 
                     },
                   }}
                 />
@@ -150,28 +150,28 @@ export default function SignInSide() {
                     mb: 2,
                     "& .MuiOutlinedInput-root": {
                       "& fieldset": {
-                        borderColor: "white", // Borde por defecto blanco
+                        borderColor: "white", 
                       },
                       "&:hover fieldset": {
-                        borderColor: "white", // Borde blanco al pasar el mouse
+                        borderColor: "white", 
                       },
                       "&.Mui-focused fieldset": {
-                        borderColor: "white", // Borde blanco cuando está enfocado
+                        borderColor: "white", 
                       },
                     },
                     "& .MuiInputLabel-root": {
-                      color: "white", // Color del texto del label
+                      color: "white", 
                     },
                     "& .MuiInputBase-input": {
-                      color: "white", // Color del texto de entrada
+                      color: "white", 
                     },
                     "& .MuiOutlinedInput-input": {
                       "&::placeholder": {
-                        color: "white", // Color del placeholder
+                        color: "white", 
                       },
                     },
                     "& .MuiInputLabel-outlined.MuiInputLabel-shrink": {
-                      color: "white", // Color del label flotante (cuando se eleva)
+                      color: "white", 
                     },
                   }}
                 />

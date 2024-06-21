@@ -21,7 +21,7 @@ const EditUser = () => {
         });
         setUser(response.data);
         setFormData({
-          id_usuario: id, // Asegúrate de que el ID esté en el formData
+          id_usuario: id, 
           nombre_completo: response.data.nombre_completo,
           nombre_usuario: response.data.nombre_usuario,
         });

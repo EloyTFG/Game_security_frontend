@@ -17,7 +17,7 @@ import {
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AuthContext from '../context/authContext';
-import ButtonAppBar from './header';
+import ButtonAppBar from '../components/header';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const CreateChallenge = () => {
@@ -30,7 +30,7 @@ const CreateChallenge = () => {
     id_fase: '',
     pistas: [],
     documentosAyuda: [],
-    documentosPrevencion: [] // Agrega un estado para los documentos de prevención
+    documentosPrevencion: [] 
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

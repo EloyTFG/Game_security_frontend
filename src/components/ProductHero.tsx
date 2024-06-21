@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import ProductHeroLayout from './ProductHeroLayout';
 import AuthContext from '../context/authContext';
-import backgroundImage from '../imagenes/wallpaper_home.webp';
+
 
 export default function ProductHero() {
   const { user } = useContext(AuthContext);

@@ -18,7 +18,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AuthContext from '../context/authContext';
-import ButtonAppBar from './header';
+import ButtonAppBar from '../components/header';
 
 const EditChallenge = () => {
   const { id } = useParams();
@@ -32,7 +32,7 @@ const EditChallenge = () => {
     id_fase: '',
     pistas: [],
     documentosAyuda: [],
-    documentosPrevencion: [] // Agrega un estado para los documentos de prevención
+    documentosPrevencion: [] 
   });
   const [fases, setFases] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -66,7 +66,7 @@ const EditChallenge = () => {
           id_fase: response.data.id_fase,
           pistas: response.data.Pista.map((p) => p.informacion_pista),
           documentosAyuda: response.data.DocumentoAyudas.map((d) => d.informacion_vulnerabilidad),
-          documentosPrevencion: response.data.DocumentoPrevencions.map((d) => d.informacion_prevencion) // Cargar los documentos de prevención
+          documentosPrevencion: response.data.DocumentoPrevencions.map((d) => d.informacion_prevencion) 
         });
       } catch (error) {
         setError('Error fetching challenge.');
