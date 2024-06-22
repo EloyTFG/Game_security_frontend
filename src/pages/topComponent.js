@@ -9,14 +9,14 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const TopPlayers = () => {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useContext(AuthContext); // Obtener el usuario autenticado
+  const { user } = useContext(AuthContext); 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTopPlayers = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/top');
-        // Ordenar jugadores por puntuación en orden descendente
+      
         const sortedPlayers = response.data.sort((a, b) => b.progreso - a.progreso);
         setPlayers(sortedPlayers);
       } catch (error) {
@@ -33,7 +33,7 @@ const TopPlayers = () => {
     return <CircularProgress />;
   }
 
-  // Encontrar la puntuación del usuario actual
+  
   const currentUserScore = players.find(player => player.nombre_usuario === user?.nombre_usuario)?.progreso || 0;
 
   return (

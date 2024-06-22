@@ -40,9 +40,10 @@ export default function ButtonAppBar() {
   };
 
   const getInitials = (name: string) => {
+    if (!name) return '';
     const words = name.split(' ');
     const initials = words.map(word => word[0]).join('').toUpperCase();
-    return initials.substring(0, 2); 
+    return initials.substring(0, 2);
   };
   
   return (

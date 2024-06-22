@@ -21,7 +21,7 @@ export default function ProductHero() {
     >
       <img
         style={{ display: 'none' }}
-        src={backgroundImage}
+        src={"http://localhost:3000/"}
         alt="increase priority"
       />
       <Typography color="inherit" align="center" variant="h2">

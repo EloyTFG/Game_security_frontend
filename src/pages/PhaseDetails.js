@@ -1,9 +1,9 @@
+// src/pages/PhaseDetails.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { List, ListItem, ListItemText, Typography, Container, CircularProgress,IconButton } from '@mui/material';
-import { Link, useParams } from 'react-router-dom';
+import { List, ListItem, ListItemText, Typography, Container, CircularProgress, IconButton } from '@mui/material';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import ButtonAppBar from '../components/header';
-import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const PhaseDetails = () => {
@@ -43,9 +43,9 @@ const PhaseDetails = () => {
     <div id='fases'>
       <ButtonAppBar />
       <Container>
-      <IconButton color="primary" onClick={() => navigate(-1)} aria-label="back">
-            <ArrowBackIcon />
-          </IconButton>
+        <IconButton color="primary" onClick={() => navigate(-1)} aria-label="back">
+          <ArrowBackIcon />
+        </IconButton>
         <Typography variant="h3" gutterBottom>
           {fase.nombre_fase}
         </Typography>
