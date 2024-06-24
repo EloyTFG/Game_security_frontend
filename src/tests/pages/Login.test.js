@@ -1,4 +1,4 @@
-// src/tests/pages/Login.test.js
+
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -6,16 +6,16 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import AuthContext from '../../context/authContext';
 import SignInSide from '../../pages/Login';
 
-// Mock para la importación problemática de vanta.net
+
 jest.mock('vanta/src/vanta.net', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
-// Mock para window.alert
+
 global.alert = jest.fn();
 
-// Mock de `useNavigate` de react-router-dom
+
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),

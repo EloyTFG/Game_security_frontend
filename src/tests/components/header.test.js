@@ -1,4 +1,4 @@
-// src/tests/components/ButtonAppBar.test.js
+
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -26,7 +26,7 @@ describe('ButtonAppBar Component', () => {
   test('shows login button when user is not logged in', () => {
     renderWithContext(null);
 
-    // Cambiado a 'link' en lugar de 'button'
+
     expect(screen.getByRole('link', { name: /login/i })).toBeInTheDocument();
   });
 
@@ -41,15 +41,14 @@ describe('ButtonAppBar Component', () => {
     const mockUser = { nombre_usuario: 'John Doe' };
     renderWithContext(mockUser);
 
-    // Open drawer
     const menuButton = screen.getByLabelText(/menu/i);
     fireEvent.click(menuButton);
 
-    // Usar 'getAllByRole' en lugar de 'getByRole'
+ 
     const presentations = screen.getAllByRole('presentation');
     expect(presentations[0]).toBeInTheDocument();
 
-    // Close drawer
+
     fireEvent.keyDown(presentations[0], { key: 'Escape' });
     expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
   });
@@ -58,7 +57,6 @@ describe('ButtonAppBar Component', () => {
     const mockUser = { nombre_usuario: 'John Doe' };
     renderWithContext(mockUser);
 
-    // Open drawer and click "My Profile"
     fireEvent.click(screen.getByLabelText(/menu/i));
     fireEvent.click(screen.getByText(/my profile/i));
     expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
@@ -75,7 +73,7 @@ describe('ButtonAppBar Component', () => {
       </AuthContext.Provider>
     );
 
-    // Open drawer and click "Logout"
+    
     fireEvent.click(screen.getByLabelText(/menu/i));
     fireEvent.click(screen.getByText(/logout/i));
 

@@ -1,4 +1,4 @@
-// src/tests/pages/PhaseList.test.js
+
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -8,10 +8,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import PhaseList from '../../pages/PhaseList';
 import AuthContext from '../../context/authContext';
 
-// Configura el mock de axios
+
 const mockAxios = new MockAdapter(axios);
 
-// Mock de `useNavigate` de react-router-dom
+
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),

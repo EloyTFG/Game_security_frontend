@@ -4,13 +4,13 @@ import '@testing-library/jest-dom';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
-import TopPlayers from '../../pages/topComponent'; // Asegúrate de que la ruta al componente sea correcta
+import TopPlayers from '../../pages/topComponent'; 
 import AuthContext from '../../context/authContext';
 
-// Crear un mock para axios
+
 const mockAxios = new MockAdapter(axios);
 
-// Mock para useNavigate
+
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -56,7 +56,7 @@ describe('TopPlayers Component', () => {
       expect(screen.getByText('Top de Jugadores')).toBeInTheDocument();
       expect(screen.getByText('player1')).toBeInTheDocument();
       expect(screen.getByText('player2')).toBeInTheDocument();
-      expect(screen.getAllByText('testuser').length).toBe(3); // Expected occurrences
+      expect(screen.getAllByText('testuser').length).toBe(3); 
     });
   });
 
@@ -78,7 +78,7 @@ describe('TopPlayers Component', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getAllByText('testuser').length).toBe(3); // Ensuring both name and score displays
+      expect(screen.getAllByText('testuser').length).toBe(3); 
      
     });
   });

@@ -7,7 +7,7 @@ import { BrowserRouter as Router, useParams, useNavigate } from 'react-router-do
 import Challenge from '../../pages/challengeDetail';
 import AuthContext from '../../context/authContext';
 
-// Configuración de mock de axios y mock de useParams
+
 const mockAxios = new MockAdapter(axios);
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -44,7 +44,7 @@ describe('Challenge Page', () => {
     renderWithContext({ name: 'test', token: 'fake-token' });
 
     await waitFor(() => {
-      // Utilizar una función personalizada para buscar el texto de error
+  
       expect(screen.queryByText((content, element) => {
         return content.startsWith('Challenge not found');
       })).toBeInTheDocument();

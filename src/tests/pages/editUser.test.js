@@ -1,4 +1,4 @@
-// src/tests/pages/EditUser.test.js
+
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -8,10 +8,10 @@ import MockAdapter from 'axios-mock-adapter';
 import EditUser from '../../pages/editUser';
 import AuthContext from '../../context/authContext';
 
-// Mock de axios
+
 const mockAxios = new MockAdapter(axios);
 
-// Mock de useParams para obtener el id del usuario
+
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useParams: () => ({

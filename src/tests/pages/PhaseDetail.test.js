@@ -1,4 +1,4 @@
-// src/tests/pages/PhaseDetail.test.js
+
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -9,10 +9,10 @@ import PhaseDetails from '../../pages/PhaseDetails';
 import AuthContext from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
 
-// Mock de axios
+
 const mockAxios = new MockAdapter(axios);
 
-// Mock de useParams para obtener `id_fase`
+
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useParams: () => ({

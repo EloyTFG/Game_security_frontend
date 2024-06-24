@@ -1,9 +1,9 @@
-// src/tests/components/ProductHero.test.js
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';  // Para aserciones como toBeInTheDocument
+import '@testing-library/jest-dom';  
 import { BrowserRouter as Router } from 'react-router-dom';
-import ProductHero from '../../components/ProductHero'; // Ajusta la ruta si es necesario
+import ProductHero from '../../components/ProductHero'; 
 import AuthContext from '../../context/authContext';
 
 describe('ProductHero Component', () => {
@@ -22,14 +22,14 @@ describe('ProductHero Component', () => {
     renderWithContext(mockUser);
 
     expect(screen.getByText(/welcome, testuser/i)).toBeInTheDocument();
-    // Cambia de 'button' a 'link'
+    
     expect(screen.getByRole('link', { name: /start playing/i })).toBeInTheDocument();
   });
 
   test('renders register and login buttons for anonymous user', () => {
     renderWithContext(null);
 
-    // Cambia de 'button' a 'link'
+    
     expect(screen.getByRole('link', { name: /register/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /login/i })).toBeInTheDocument();
     expect(screen.getByText(/discover the experience/i)).toBeInTheDocument();
