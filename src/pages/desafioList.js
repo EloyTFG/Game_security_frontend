@@ -83,14 +83,14 @@ const ChallengeList = () => {
             Crear Desafío
           </Button>
         </Box>
-        {challenges.map((challenge) => (
+        {challenges.map((challenge, index) => (
           <Accordion key={challenge.id_desafio}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`panel-${challenge.id_desafio}-content`}
               id={`panel-${challenge.id_desafio}-header`}
             >
-              <Typography variant="h6">Desafío {challenge.id_desafio}</Typography>
+              <Typography variant="h6">Desafío {index + 1}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Box>
