@@ -25,7 +25,7 @@ export default function ProductHero() {
         alt="increase priority"
       />
       <Typography color="inherit" align="center" variant="h2">
-        Game Security
+        Web Security
       </Typography>
       {user ? (
         <>

@@ -77,7 +77,7 @@ export default function ButtonAppBar() {
             }}
           >
             <Typography variant="h6" component="div">
-              Game Security
+              Web Security
             </Typography>
           </Button>
           <Box sx={{ flexGrow: 1 }} />
